@@ -1,0 +1,5 @@
+import sqlite3
+
+#Создание подключение к базе данных
+connection = sqlite3.connect('my_database.db')
+connection.close()
