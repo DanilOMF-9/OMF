@@ -1,19 +1,18 @@
 import sqlite3
 
-#уСТАНАВЛДИВАЕМ СОЕДИНЕНИЕ С БД
-with sqlite3.connect('my_database.db') as connection:
-    cursor = connection.cursor()
+connection = sqlite3.connect('my_database.db')
+cursor = connection.cursor()
 
-    try:
-        #Начинаем танзакции автоматически
-        with connection:
-            #Выполныем операцию
-            cursor.execute('INSERT INTO Users(username, emaiol) VALUES(?, ?)', ('user3', 'user3@example.com'))
-            cursor.execute('INSERT INTO Users(username, emaiol) VALUES(?, ?)', ('user4', 'user4@example.com'))
+#Создаем представление для активных пользователей
 
-    except:
-        #Ошибка будет приводить к автоматическому отказу транзакции
-        pass
-            
+cursor.execute('CREATE VIEW ActiveUsers AS SELECT * FROM Users WHERE is_active = 1')
 
+#вВЫБИАРЕМ АКТИВНЫХ АОЛЬЗОВАТЕЛЕЙ
+cursor.execute('SELECT * FROM ActiveUsers')
+active_users = cursor.fetchall()
+
+for user in active_users:
+    print(user)
+
+connection.close()
 
