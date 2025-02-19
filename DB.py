@@ -4,14 +4,22 @@ import sqlite3
 connection = sqlite3.connect('my_database.db')
 cursor = connection.cursor()
 
-#Выбираем пользователей с неизвестным возростом
-cursor.execute('SELECT * FROM Users WHERE age IS NULL')
-unknown_age_users = cursor.fetchall()
+try:
+    #нАЧ ТРАНЗАКЦИИ
+    cursor.execute('BEGIN')
 
-#Вывод
-for user in unknown_age_users:
-    print(user)
+    #вЫПОЛНЯЕМ ОПЕРАЦИИ
+    cursor.execute('INSERT INTO Users(username, email) VALUES (?, ?)', ('user1','user1@example.com'))
+    cusror.execute('INSERT INTO Users(username, email) VALUES (?, ?)', ('user2','user2@example.com'))
 
+    #Подтверждаем изменения
+    cursor.execute('COMMIT')
+
+except:
+    #Отменяем транзакции в случае ошибки
+    cursor.execute('ROLLBACK'
+
+                   )
 connection.close()
 
 
