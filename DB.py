@@ -1,25 +1,19 @@
 import sqlite3
 
-#Установка соединенияч с базой 
-connection = sqlite3.connect('my_database.db')
-cursor = connection.cursor()
+#уСТАНАВЛДИВАЕМ СОЕДИНЕНИЕ С БД
+with sqlite3.connect('my_database.db') as connection:
+    cursor = connection.cursor()
 
-try:
-    #нАЧ ТРАНЗАКЦИИ
-    cursor.execute('BEGIN')
+    try:
+        #Начинаем танзакции автоматически
+        with connection:
+            #Выполныем операцию
+            cursor.execute('INSERT INTO Users(username, emaiol) VALUES(?, ?)', ('user3', 'user3@example.com'))
+            cursor.execute('INSERT INTO Users(username, emaiol) VALUES(?, ?)', ('user4', 'user4@example.com'))
 
-    #вЫПОЛНЯЕМ ОПЕРАЦИИ
-    cursor.execute('INSERT INTO Users(username, email) VALUES (?, ?)', ('user1','user1@example.com'))
-    cusror.execute('INSERT INTO Users(username, email) VALUES (?, ?)', ('user2','user2@example.com'))
-
-    #Подтверждаем изменения
-    cursor.execute('COMMIT')
-
-except:
-    #Отменяем транзакции в случае ошибки
-    cursor.execute('ROLLBACK'
-
-                   )
-connection.close()
+    except:
+        #Ошибка будет приводить к автоматическому отказу транзакции
+        pass
+            
 
 
