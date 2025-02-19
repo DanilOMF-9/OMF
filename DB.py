@@ -4,11 +4,11 @@ import sqlite3
 connection = sqlite3.connect('my_database.db')
 cursor = connection.cursor()
 
-#Подсчет общего числа потльзователей
-cursor.execute('SELECT COUNT(*) FROM Users')
-total_users = cursor.fetchone()[0]
+#Вычисление суммы возрасов пользователей
+cursor.execute("SELECT SUM(age) FROM Users")
+total_age = cursor.fetchone()[0]
 
-print("Общее количество пользователей:", total_users)
+print("Общее количество пользователей:", total_age)
 connection.close()
 
 
