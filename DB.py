@@ -12,11 +12,11 @@ results = cursor.fetchall()
 for row in results:
     print(row)
 
-#Фильтрацич гкрппы по среднему возпросту больше 30
-cursor.execute('SELECT age, AVG(age) FROM Users GROUP BY age HAVING AVG(age) > ?', (30,))
-filtered_results = cursor.fetchall()
+#Выбираем и сортируем пользователей по возросту по убыванию
+cursor.execute('SELECT username, age FROM Users ORDER BY age DESC')
+results = cursor.fetchall()
 
-for row in filtered_results:
+for row in results:
     print(row)
 #Сохранение изменения и закрытием соединение
 
