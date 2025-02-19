@@ -4,11 +4,15 @@ import sqlite3
 connection = sqlite3.connect('my_database.db')
 cursor = connection.cursor()
 
-#Добавлене нового пользователя
-cursor.execute('DELETE FROM Users WHERE username = ?', ('newuser',))
+#Выбираем всех пользователей
+cursor.execute('SELECT * FROM Users')
+users = cursor.fetchall()
 
+#Вывод результата
+for user in users:
+    print(users)
 #Сохранение изменения и закрытием соединение
-connection.commit()
+
 connection.close()
 
 
