@@ -4,11 +4,17 @@ import sqlite3
 connection = sqlite3.connect('my_database.db')
 cursor = connection.cursor()
 
-#Нахождения максимума возрата
-cursor.execute("SELECT MAX(age) FROM Users")
-max_age = cursor.fetchone()[0]
+#Нахождение пользователей с наибольшим возростом
+cursor.execute('''
+SELECT username, age
+FROM Users
+WHERE age =(SELECT MAX(age) FROM Users)
+''')
+oldest_users = cursor.fetchall()
 
-print("Минимум ввозрост пользователей:", max_age)
+for user in oldest_users:
+    print(user)
+    
 connection.close()
 
 
