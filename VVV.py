@@ -30,5 +30,23 @@ WHERE
 
 users = cursor.fetchall()
 print(users)
+
+print('/' * 50)
+cursor.execute('''SELECT
+    C.id_orders,
+    Cust.fio,
+    C.order_date,
+    C.location
+FROM
+    Client AS C
+JOIN
+    Customers AS Cust ON C.id_client = Cust.id_client
+WHERE
+    Cust.fio LIKE 'А%' OR Cust.fio LIKE 'P%';
+    ''')
+
+users1 = cursor.fetchall()
+print(users1)
+
 connection.commit()
 connection.close()
