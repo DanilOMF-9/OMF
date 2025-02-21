@@ -31,7 +31,7 @@ WHERE
 users = cursor.fetchall()
 print(users)
 
-print('/' * 50)
+print('/' * 50, '\n')
 cursor.execute('''SELECT
     C.id_orders,
     Cust.fio,
@@ -47,6 +47,58 @@ WHERE
 
 users1 = cursor.fetchall()
 print(users1)
+print('\n')
+print('Каков код производителя телевизора?')
+cursor.execute('''SELECT
+    id_proisvod
+FROM
+    Tv
+''')
+TV = cursor.fetchall()
+print(TV)
 
+print('\n')
+print('Каково название модели телевизора?')
+cursor.execute('''SELECT
+    model_name
+FROM
+    Tv
+''')
+TV2 = cursor.fetchall()
+print(TV2)
+print('\n')
+
+print('Каков размер диагонали телевизора  в дюймах ')
+cursor.execute('''SELECT
+    diagonal_size
+FROM
+    Tv
+''')
+
+TV3 = cursor.fetchall()
+print(TV3)
+print('\n')
+
+print('Какова цена телевизора?')
+cursor.execute('''SELECT
+    price
+FROM
+    Tv
+''')
+
+TV4 = cursor.fetchall()
+print(TV4)
+print('\n')
+
+print('Каков идентификатор клиента и Каковы ФИО клиента?')
+cursor.execute('''SELECT
+    id_client,
+    fio
+FROM
+    Customers
+''')
+
+Cli = cursor.fetchall()
+print(Cli)
 connection.commit()
 connection.close()
